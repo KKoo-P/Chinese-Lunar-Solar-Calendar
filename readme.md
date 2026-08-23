@@ -1,4 +1,4 @@
-📅 萬年曆公曆農曆對照表 (PWA 離線版)
+📅 萬年曆公曆農曆對照表
 
 一個輕量、現代化且支援 PWA (Progressive Web App) 的萬年曆網頁應用程式。提供公曆與農曆對照、干支生肖、二十四節氣、黃曆宜忌查詢等功能，支援手機桌面安裝與完全離線使用。
 
@@ -28,34 +28,10 @@
 └── README.md        # 專案說明文件
 
 
-🚀 GitHub Pages 部署指引
-
-只需將本專案上傳至 GitHub，即可免費獲得專屬網址並啟用 PWA 功能：
-
-建立儲存庫 (Repository)：
-
-登入 GitHub，點擊右上角 + ➔ New repository。
-
-輸入儲存庫名稱（例如 calendar-pwa），選擇 Public，點擊 Create repository。
-
-上傳檔案：
-
-將本專案的所有檔案 (index.html, manifest.json, sw.js, icon.svg, README.md) 推送 (Push) 或直接拖曳上傳至該儲存庫的主分頁 (main 或 master)。
-
-啟用 GitHub Pages：
-
-在 GitHub 儲存庫頁面中，點擊上方的 Settings 頁籤。
-
-點擊左側選單的 Pages。
-
-在 Build and deployment 下方的 Source 選擇 Deploy from a branch。
-
-Branch 選擇 main (或 master) / / (root)，點擊 Save 保存。
-
-稍等 1 至 2 分鐘，頁面上方將出現您的專屬網址：
-https://<你的GitHub帳號>.github.io/<儲存庫名稱>/
 
 📲 如何安裝至手機桌面 (PWA)
+
+
 
 🍎 iOS (iPhone / iPad)
 
@@ -67,6 +43,8 @@ https://<你的GitHub帳號>.github.io/<儲存庫名稱>/
 
 確認名稱後點擊右上角 「新增」 即可。
 
+
+
 🤖 Android (安卓系統)
 
 使用 Chrome 瀏覽器 開啟您的 GitHub Pages 網址。
@@ -76,6 +54,8 @@ https://<你的GitHub帳號>.github.io/<儲存庫名稱>/
 點擊 「安裝應用程式」 (Install app) 或 「新增至主螢幕」 (Add to Home screen)。
 
 按照指示確認安裝。
+
+
 
 🛠️ 技術棧
 
@@ -88,3 +68,4 @@ PWA 技術：Web App Manifest, Service Worker API (Cache First 策略)
 📄 授權條款
 
 本專案基於 MIT License 開源。
+
