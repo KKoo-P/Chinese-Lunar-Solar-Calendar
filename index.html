@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>萬年曆公曆農曆對照表</title>
+    
+    <!-- PWA 配置鏈接 -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="萬年曆">
+
+    <!-- 引入農曆計算庫 (離線時會由 Service Worker 擷取快取) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunar-javascript/1.6.12/lunar.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --container-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --today-bg: rgba(79, 70, 229, 0.08);
+            --today-border: #4f46e5;
+            --weekend-color: #ef4444;
+            --term-color: #10b981;
+            --header-bg: #f1f5f9;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --container-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --today-bg: rgba(99, 102, 241, 0.18);
+            --today-border: #818cf8;
+            --weekend-color: #f87171;
+            --term-color: #34d399;
+            --header-bg: #0f172a;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; }
+
+        header {
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; padding-bottom: 16px; border-bottom: 2px solid var(--border-color); gap: 10px;
+        }
+
+        h1 { margin: 0; font-size: 1.5rem; }
+
+        .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+        .btn {
+            background-color: var(--primary-color); color: white; border: none; padding: 8px 12px;
+            border-radius: 8px; cursor: pointer; font-weight: 500; transition: background-color 0.2s;
+            font-size: 0.88rem;
+        }
+        .btn:hover { background-color: var(--primary-hover); }
+
+        .btn-today {
+            background-color: #10b981; color: white; border: none; padding: 8px 12px;
+            border-radius: 8px; cursor: pointer; font-weight: 600; transition: background-color 0.2s;
+            font-size: 0.88rem;
+        }
+        .btn-today:hover { background-color: #059669; }
+
+        .theme-toggle {
+            background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color);
+            padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 0.88rem;
+        }
+        .theme-toggle:hover { background-color: var(--header-bg); }
+
+        .year-select, .month-select {
+            font-size: 0.95rem; font-weight: bold; padding: 6px 10px; border-radius: 8px;
+            border: 1px solid var(--border-color); background-color: var(--container-bg); color: var(--text-color);
+            cursor: pointer; outline: none;
+        }
+
+        .search-box { margin-bottom: 16px; }
+        .search-box input {
+            width: 100%; padding: 12px 16px; font-size: 0.95rem; border: 1px solid var(--border-color);
+            border-radius: 10px; background-color: var(--container-bg); color: var(--text-color); box-sizing: border-box; outline: none;
+        }
+        .search-box input:focus { border-color: var(--primary-color); }
+
+        /* 月份導航 */
+        .month-navigation {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+            background-color: var(--container-bg); border: 1px solid var(--border-color);
+            padding: 10px 16px; border-radius: 12px; box-shadow: var(--card-shadow); flex-wrap: wrap; gap: 8px;
+        }
+
+        .nav-center { display: flex; align-items: center; gap: 8px; }
+
+        .nav-arrow {
+            background-color: var(--header-bg); border: 1px solid var(--border-color); color: var(--text-color);
+            width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-weight: bold; transition: all 0.2s; user-select: none;
+        }
+        .nav-arrow:hover:not(.disabled) { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .nav-arrow.disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* 網格檢視 */
+        .grid-view { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .month-card {
+            background-color: var(--container-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow);
+        }
+        .month-title {
+            font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 16px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--border-color); color: var(--primary-color);
+        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+        .weekday-header { font-weight: bold; font-size: 0.85rem; color: var(--text-muted); padding: 6px 0; }
+        .weekday-header.weekend { color: var(--weekend-color); }
+        
+        .day-cell {
+            aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 8px; font-size: 0.95rem; border: 1px solid transparent; cursor: pointer;
+            transition: all 0.15s; background-color: var(--header-bg); position: relative;
+        }
+        .day-cell:hover:not(.empty) { background-color: var(--primary-color); color: white !important; transform: scale(1.05); z-index: 2; }
+        .day-cell:hover:not(.empty) .l-day { color: rgba(255, 255, 255, 0.9) !important; }
+        .day-cell.empty { cursor: default; background-color: transparent; border-color: transparent; }
+        .day-cell .g-day { font-weight: 600; }
+        .day-cell .l-day { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+        .day-cell.weekend .g-day { color: var(--weekend-color); }
+        .day-cell.has-term .l-day { color: var(--term-color); font-weight: bold; }
+
+        /* 當日 highlight 樣式 */
+        .day-cell.is-today {
+            border: 2px solid var(--today-border) !important;
+            background-color: var(--today-bg) !important;
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+            font-weight: bold;
+        }
+        .day-cell.is-today::after {
+            content: '今天';
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 0.55rem;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 1px 3px;
+            border-radius: 4px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        /* 列表檢視 */
+        .list-view {
+            display: none; background-color: var(--container-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; overflow-x: auto; box-shadow: var(--card-shadow);
+        }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 750px; }
+        th, td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        th { background-color: var(--header-bg); font-weight: bold; color: var(--primary-color); white-space: nowrap; }
+        tr:hover { background-color: var(--header-bg); cursor: pointer; }
+        tr.is-today-row { background-color: var(--today-bg); font-weight: bold; }
+        
+        .text-truncate {
+            max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; vertical-align: bottom;
+        }
+        .text-highlight-red { color: #ef4444; font-weight: bold; }
+        .text-highlight-green { color: #10b981; font-weight: bold; }
+
+        /* 詳情彈窗 */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background-color: var(--container-bg); border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 20px; max-width: 380px; width: 88%; box-shadow: var(--card-shadow); position: relative;
+            max-height: 85vh; overflow-y: auto;
+        }
+        .close-btn { position: absolute; top: 12px; right: 15px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+        .modal-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; align-items: flex-start; gap: 8px; }
+        .info-label { color: var(--text-muted); white-space: nowrap; }
+        .info-value { font-weight: 600; text-align: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="calendarTitle">📅 公曆農曆對照表</h1>
+            <div class="controls">
+                <button class="btn-today" onclick="jumpToToday()">📍 回到今天</button>
+                <button class="btn" id="viewToggleBtn" onclick="toggleView()">切換列表檢視</button>
+                <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 深色模式</button>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜尋日期、節氣、宜忌 (例如：端午、中秋、立春、嫁娶...)" oninput="handleSearch()">
+        </div>
+
+        <div class="month-navigation" id="monthNavigation">
+            <div class="nav-arrow" id="prevBtn" onclick="prevMonth()">&lt;</div>
+            <div class="nav-center">
+                <select id="yearSelect" class="year-select" onchange="changeYear(this.value)"></select>
+                <select id="monthSelect" class="month-select" onchange="selectMonth(this.value)">
+                    <option value="1">一月 (January)</option>
+                    <option value="2">二月 (February)</option>
+                    <option value="3">三月 (March)</option>
+                    <option value="4">四月 (April)</option>
+                    <option value="5">五月 (May)</option>
+                    <option value="6">六月 (June)</option>
+                    <option value="7">七月 (July)</option>
+                    <option value="8">八月 (August)</option>
+                    <option value="9">九月 (September)</option>
+                    <option value="10">十月 (October)</option>
+                    <option value="11">十一月 (November)</option>
+                    <option value="12">十二月 (December)</option>
+                </select>
+            </div>
+            <div class="nav-arrow" id="nextBtn" onclick="nextMonth()">&gt;</div>
+        </div>
+
+        <div class="grid-view" id="gridView"></div>
+
+        <div class="list-view" id="listView">
+            <table>
+                <thead>
+                    <tr>
+                        <th>公曆日期</th>
+                        <th>星期</th>
+                        <th>農曆 (干支)</th>
+                        <th>節氣</th>
+                        <th>沖煞</th>
+                        <th>宜</th>
+                        <th>忌</th>
+                    </tr>
+                </thead>
+                <tbody id="listBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 詳情彈窗 -->
+    <div class="modal" id="detailModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="document.getElementById('detailModal').style.display='none'">&times;</span>
+            <div class="modal-title" id="modalTitle">黃曆詳情</div>
+            <div class="info-row"><span class="info-label">公曆日期：</span><span class="info-value" id="modalGDate"></span></div>
+            <div class="info-row"><span class="info-label">星期：</span><span class="info-value" id="modalDayOfWeek"></span></div>
+            <div class="info-row"><span class="info-label">農曆日期：</span><span class="info-value" id="modalLDate"></span></div>
+            <div class="info-row"><span class="info-label">干支生肖：</span><span class="info-value" id="modalGanZhi"></span></div>
+            <div class="info-row"><span class="info-label">節氣：</span><span class="info-value text-highlight-green" id="modalTerm"></span></div>
+            <div class="info-row"><span class="info-label">沖煞：</span><span class="info-value" id="modalChongSha"></span></div>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
+            <div class="info-row"><span class="info-label text-highlight-green">宜：</span><span class="info-value text-highlight-green" id="modalYi"></span></div>
+            <div class="info-row"><span class="info-label text-highlight-red">忌：</span><span class="info-value text-highlight-red" id="modalJi"></span></div>
+        </div>
+    </div>
+
+    <script>
+        // 繁體中文映射字典
+        const s2tDict = {
+            '开':'開', '动':'動', '纳':'納', '财':'財', '采':'采', '仓':'倉', '库':'庫',
+            '殓':'殮', '坟':'墳', '寿':'壽', '结':'結', '网':'網', '启':'啟', '攒':'攢',
+            '诸':'諸', '余':'餘', '惊':'驚', '蛰':'蟄', '谷':'穀', '满':'滿', '闭':'閉',
+            '绘':'繪', '庙':'廟', '谢':'謝', '订':'訂', '帐':'帳', '酿':'釀', '猎':'獵',
+            '种':'種', '养':'養', '货':'貨', '盖':'蓋', '扫':'掃', '医':'醫', '针':'針',
+            '门':'門', '灶':'灶', '产':'產', '妇':'婦', '发':'發', '补':'補', '筑':'築',
+            '词':'詞', '讼':'訟', '诉':'訴', '买':'買', '卖':'賣', '进':'進', '渔':'漁',
+            '挂':'掛', '斋':'齋', '岁':'歲', '冲':'沖', '东':'東', '南':'南', '西':'西',
+            '北':'北', '阳':'陽', '阴':'陰', '历':'曆', '农':'農', '腊':'臘', '虫':'蟲',
+            '鸡':'雞', '猪':'豬', '马':'馬', '龙':'龍', '属':'屬', '辞':'辭', '旧':'舊',
+            '坛':'壇', '场':'場', '坏':'壞', '墙':'牆', '车':'車', '气':'氣', '处':'處',
+            '时':'時', '从':'從', '头':'頭', '万':'萬', '无':'無', '云':'雲', '风':'風',
+            '电':'電', '学':'學', '术':'術', '艺':'藝', '辉':'輝', '临':'臨', '觉':'覺',
+            '梦':'夢', '观':'觀', '见':'見', '闻':'聞', '听':'聽', '声':'聲', '响':'響',
+            '齐':'齊', '醮':'醮', '毁':'毀', '拆':'拆', '断':'斷', '丧':'喪', '庆':'慶',
+            '宝':'寶', '还':'還', '远':'遠', '违':'違', '连':'連', '迟':'遲', '过':'過',
+            '达':'達', '运':'運', '游':'遊', '道':'道', '递':'遞', '业':'業', '树':'樹',
+            '桥':'橋', '炉':'爐', '锅':'鍋', '杀':'殺', '疗':'療', '体':'體', '须':'鬚',
+            '胜':'勝', '划':'劃', '汇':'匯', '柜':'櫃', '鉴':'鑑', '灵':'靈', '历':'曆',
+            '离':'離', '干':'乾', '里':'裡'
+        };
+
+        function toTrad(str) {
+            if (!str) return '';
+            let res = '';
+            for (let i = 0; i < str.length; i++) {
+                res += s2tDict[str[i]] || str[i];
+            }
+            return res;
+        }
+
+        // 系統當前日期變數
+        const sysDate = new Date();
+        const sysYear = sysDate.getFullYear();
+        const sysMonth = sysDate.getMonth() + 1;
+        const sysDay = sysDate.getDate();
+
+        let currentYear = sysYear;
+        let currentMonth = sysMonth;
+        let calendarData = [];
+        let currentView = 'grid';
+
+        const monthsZh = ["一月 (January)", "二月 (February)", "三月 (March)", "四月 (April)", "五月 (May)", "六月 (June)", 
+                          "七月 (July)", "八月 (August)", "九月 (September)", "十月 (October)", "十一月 (November)", "十二月 (December)"];
+        const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
+
+        function generateYearData(year) {
+            let data = [];
+            for (let month = 1; month <= 12; month++) {
+                const daysInMonth = new Date(year, month, 0).getDate();
+                for (let day = 1; day <= daysInMonth; day++) {
+                    try {
+                        const solar = Solar.fromYmd(year, month, day);
+                        const lunar = solar.getLunar();
+                        const g_date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                        const isToday = (year === sysYear && month === sysMonth && day === sysDay);
+                        
+                        data.push({
+                            g_date: g_date,
+                            year: year,
+                            month: month,
+                            day: day,
+                            isToday: isToday,
+                            day_of_week: solar.getWeek(),
+                            gan_zhi: lunar.getYearInGanZhi() + '年',
+                            zodiac: lunar.getYearShengXiao(),
+                            l_month: lunar.getMonthInChinese() + '月',
+                            l_date: lunar.getDayInChinese(),
+                            solar_term: toTrad(lunar.getJieQi() || ''),
+                            chong_sha: toTrad(`沖${lunar.getDayChongDesc()} 煞${lunar.getDaySha()}`),
+                            yi: toTrad(lunar.getDayYi().join('、') || '無'),
+                            ji: toTrad(lunar.getDayJi().join('、') || '無'),
+                            festivals: toTrad(lunar.getFestivals().join('、'))
+                        });
+                    } catch (e) {
+                        console.error("生成日期錯誤", year, month, day, e);
+                    }
+                }
+            }
+            return data;
+        }
+
+        function init() {
+            // 自動偵測系統主題
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeBtn').innerHTML = '☀️ 淺色模式';
+            }
+
+            // 初始化年份下拉選單 (前後 5 年)
+            const yearSelect = document.getElementById('yearSelect');
+            yearSelect.innerHTML = '';
+            for (let y = sysYear - 5; y <= sysYear + 5; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = `${y} 年`;
+                if (y === currentYear) opt.selected = true;
+                yearSelect.appendChild(opt);
+            }
+
+            // 載入年份數據
+            loadYear(currentYear);
+
+            // 自動滾動到今天
+            setTimeout(scrollToToday, 250);
+        }
+
+        function loadYear(year) {
+            currentYear = year;
+            document.getElementById('calendarTitle').innerHTML = `📅 ${currentYear}年公曆農曆對照表`;
+            document.getElementById('yearSelect').value = currentYear;
+            calendarData = generateYearData(currentYear);
+            updateMonthView();
+        }
+
+        function changeYear(val) {
+            loadYear(parseInt(val));
+        }
+
+        function jumpToToday() {
+            if (currentYear !== sysYear) {
+                loadYear(sysYear);
+            }
+            currentMonth = sysMonth;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('monthNavigation').style.display = 'flex';
+            updateMonthView();
+            setTimeout(scrollToToday, 100);
+        }
+
+        function scrollToToday() {
+            const todayEl = document.querySelector('.is-today') || document.querySelector('.is-today-row');
+            if (todayEl) {
+                todayEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                document.getElementById('themeBtn').innerHTML = '🌙 深色模式';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeBtn').innerHTML = '☀️ 淺色模式';
+            }
+        }
+
+        function toggleView() {
+            const grid = document.getElementById('gridView');
+            const list = document.getElementById('listView');
+            const btn = document.getElementById('viewToggleBtn');
+            
+            if (currentView === 'grid') {
+                grid.style.display = 'none';
+                list.style.display = 'block';
+                btn.innerHTML = '切換網格檢視';
+                currentView = 'list';
+            } else {
+                grid.style.display = 'grid';
+                list.style.display = 'none';
+                btn.innerHTML = '切換列表檢視';
+                currentView = 'grid';
+            }
+            
+            const isSearchActive = document.getElementById('searchInput').value.trim() !== "";
+            if (!isSearchActive) {
+                updateMonthView();
+            } else {
+                handleSearch();
+            }
+
+            setTimeout(scrollToToday, 100);
+        }
+
+        function prevMonth() { if (currentMonth > 1) { currentMonth--; updateMonthView(); } }
+        function nextMonth() { if (currentMonth < 12) { currentMonth++; updateMonthView(); } }
+        function selectMonth(val) { currentMonth = parseInt(val); updateMonthView(); }
+
+        function updateMonthView() {
+            document.getElementById('monthSelect').value = currentMonth;
+            document.getElementById('prevBtn').classList.toggle('disabled', currentMonth === 1);
+            document.getElementById('nextBtn').classList.toggle('disabled', currentMonth === 12);
+            
+            const monthData = calendarData.filter(d => d.month === currentMonth);
+            renderGrid(monthData, `${currentYear} 年 ${monthsZh[currentMonth-1]}`);
+            renderList(monthData);
+        }
+
+        function renderGrid(data, titleText) {
+            const gridContainer = document.getElementById('gridView');
+            gridContainer.innerHTML = '';
+            if (data.length === 0) return;
+
+            const monthCard = document.createElement('div');
+            monthCard.className = 'month-card';
+
+            const title = document.createElement('div');
+            title.className = 'month-title';
+            title.innerHTML = titleText;
+            monthCard.appendChild(title);
+
+            const calGrid = document.createElement('div');
+            calGrid.className = 'calendar-grid';
+
+            weekdays.forEach((day, index) => {
+                const hw = document.createElement('div');
+                hw.className = 'weekday-header';
+                if (index === 0 || index === 6) hw.classList.add('weekend');
+                hw.innerHTML = day;
+                calGrid.appendChild(hw);
+            });
+
+            const firstDay = data[0];
+            for (let i = 0; i < firstDay.day_of_week; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'day-cell empty';
+                calGrid.appendChild(emptyCell);
+            }
+
+            data.forEach(day => {
+                const cell = document.createElement('div');
+                cell.className = 'day-cell';
+                if (day.isToday) cell.classList.add('is-today');
+                if (day.day_of_week === 0 || day.day_of_week === 6) cell.classList.add('weekend');
+                if (day.solar_term || day.festivals) cell.classList.add('has-term');
+                
+                const gDay = document.createElement('span');
+                gDay.className = 'g-day';
+                gDay.innerHTML = day.day;
+
+                const lDay = document.createElement('span');
+                lDay.className = 'l-day';
+                lDay.innerHTML = day.solar_term ? day.solar_term : (day.festivals ? day.festivals : (day.l_date === '初一' ? day.l_month : day.l_date));
+
+                cell.appendChild(gDay);
+                cell.appendChild(lDay);
+                cell.onclick = () => showDetail(day);
+
+                calGrid.appendChild(cell);
+            });
+
+            monthCard.appendChild(calGrid);
+            gridContainer.appendChild(monthCard);
+        }
+
+        function renderList(data) {
+            const tbody = document.getElementById('listBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(day => {
+                const tr = document.createElement('tr');
+                if (day.isToday) tr.classList.add('is-today-row');
+                tr.onclick = () => showDetail(day);
+                
+                tr.innerHTML = `
+                    <td>${day.g_date} ${day.isToday ? '<span style="color:var(--primary-color);font-weight:bold;">(今天)</span>' : ''}</td>
+                    <td>${weekdays[day.day_of_week]}</td>
+                    <td>${day.gan_zhi} (${day.zodiac})<br><span style="color:var(--text-muted);font-size:0.85em">${day.l_month}${day.l_date}</span></td>
+                    <td class="text-highlight-green">${day.solar_term || '-'}</td>
+                    <td>${day.chong_sha}</td>
+                    <td><span class="text-truncate text-highlight-green" title="${day.yi}">${day.yi}</span></td>
+                    <td><span class="text-truncate text-highlight-red" title="${day.ji}">${day.ji}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const nav = document.getElementById('monthNavigation');
+
+            if (!query) {
+                nav.style.display = 'flex';
+                updateMonthView();
+                return;
+            }
+
+            nav.style.display = 'none';
+
+            const filtered = calendarData.filter(d => {
+                const searchStr = `${d.month}月${d.day}日 ${d.g_date} ${d.l_month}${d.l_date} ${d.gan_zhi} ${d.zodiac} ${d.solar_term} ${d.yi} ${d.ji} ${d.festivals}`;
+                return searchStr.toLowerCase().includes(query);
+            });
+
+            if (currentView === 'grid') {
+                const gridContainer = document.getElementById('gridView');
+                gridContainer.innerHTML = '';
+                
+                if (filtered.length === 0) {
+                    gridContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted);">查無匹配日期</div>';
+                    return;
+                }
+
+                const resultCard = document.createElement('div');
+                resultCard.className = 'month-card';
+                resultCard.innerHTML = `<div class="month-title">搜尋結果 (${filtered.length} 筆)</div>`;
+                
+                const calGrid = document.createElement('div');
+                calGrid.className = 'calendar-grid';
+                calGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(75px, 1fr))';
+
+                filtered.forEach(day => {
+                    const cell = document.createElement('div');
+                    cell.className = 'day-cell';
+                    if (day.isToday) cell.classList.add('is-today');
+                    if (day.day_of_week === 0 || day.day_of_week === 6) cell.classList.add('weekend');
+                    if (day.solar_term) cell.classList.add('has-term');
+                    
+                    const gDay = document.createElement('span');
+                    gDay.className = 'g-day';
+                    gDay.style.fontSize = '0.8rem';
+                    gDay.innerHTML = `${day.month}/${day.day}`;
+
+                    const lDay = document.createElement('span');
+                    lDay.className = 'l-day';
+                    lDay.innerHTML = day.solar_term || day.l_date;
+
+                    cell.appendChild(gDay);
+                    cell.appendChild(lDay);
+                    cell.onclick = () => showDetail(day);
+
+                    calGrid.appendChild(cell);
+                });
+
+                resultCard.appendChild(calGrid);
+                gridContainer.appendChild(resultCard);
+            }
+            
+            renderList(filtered);
+        }
+
+        function showDetail(day) {
+            document.getElementById('modalGDate').innerHTML = day.g_date + (day.isToday ? ' (今天)' : '');
+            document.getElementById('modalDayOfWeek').innerHTML = '星期' + weekdays[day.day_of_week];
+            document.getElementById('modalGanZhi').innerHTML = day.gan_zhi + ' ' + day.zodiac + '年';
+            document.getElementById('modalLDate').innerHTML = day.l_month + day.l_date;
+            document.getElementById('modalTerm').innerHTML = day.solar_term || '無';
+            document.getElementById('modalChongSha').innerHTML = day.chong_sha;
+            document.getElementById('modalYi').innerHTML = day.yi;
+            document.getElementById('modalJi').innerHTML = day.ji;
+            
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('detailModal')) {
+                document.getElementById('detailModal').style.display = 'none';
+            }
+        }
+
+        // 註冊 Service Worker 實現 PWA 快取與離線使用
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker 註冊成功:', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker 註冊失敗:', err);
+                    });
+            });
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
