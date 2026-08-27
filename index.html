@@ -2,36 +2,43 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>萬年曆公曆農曆對照表</title>
     
-    <!-- PWA 配置鏈接 -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="apple-touch-icon" href="icon.svg">
+    <!-- Inline Dynamic PWA Manifest via Data URI -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"萬年曆公曆農曆對照表","short_name":"萬年曆","description":"精準公曆農曆對照、節氣、黃曆宜忌與萬年曆查詢工具","start_url":"./","display":"standalone","background_color":"#4f46e5","theme_color":"#4f46e5","icons":[{"src":"data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><defs><linearGradient id=\"bg\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%234F46E5\"/><stop offset=\"100%\" stop-color=\"%237C3AED\"/></linearGradient><linearGradient id=\"badge\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%23EF4444\"/><stop offset=\"100%\" stop-color=\"%23B91C1C\"/></linearGradient></defs><rect width=\"512\" height=\"512\" rx=\"112\" fill=\"url(%23bg)\"/><rect x=\"64\" y=\"80\" width=\"384\" height=\"368\" rx=\"32\" fill=\"%23FFFFFF\" fill-opacity=\"0.95\"/><path d=\"M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z\" fill=\"url(%23badge)\"/><circle cx=\"144\" cy=\"80\" r=\"12\" fill=\"%231E293B\"/><circle cx=\"368\" cy=\"80\" r=\"12\" fill=\"%231E293B\"/><rect x=\"138\" y=\"52\" width=\"12\" height=\"32\" rx=\"6\" fill=\"%2394A3B8\"/><rect x=\"362\" y=\"52\" width=\"12\" height=\"32\" rx=\"6\" fill=\"%2394A3B8\"/><text x=\"256\" y=\"132\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"32\" fill=\"%23FFFFFF\" text-anchor=\"middle\">萬年曆</text><text x=\"256\" y=\"310\" font-family=\"serif\" font-weight=\"bold\" font-size=\"130\" fill=\"%231E293B\" text-anchor="middle\">曆</text><text x=\"256\" y=\"415\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"22\" fill=\"%2364748B\" text-anchor=\"middle\">公曆 • 農曆</text></svg>","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}'>
+    
+    <!-- Dynamic SVG Favicon & Touch Icon Data URIs -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%234F46E5"/><stop offset="100%" stop-color="%237C3AED"/></linearGradient><linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23EF4444"/><stop offset="100%" stop-color="%23B91C1C"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(%23bg)"/><rect x="64" y="80" width="384" height="368" rx="32" fill="%23FFFFFF" fill-opacity="0.95"/><path d="M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z" fill="url(%23badge)"/><circle cx="144" cy="80" r="12" fill="%231E293B"/><circle cx="368" cy="80" r="12" fill="%231E293B"/><rect x="138" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><rect x="362" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><text x="256" y="132" font-family="sans-serif" font-weight="bold" font-size="32" fill="%23FFFFFF" text-anchor="middle">萬年曆</text><text x="256" y="310" font-family="serif" font-weight="bold" font-size="130" fill="%231E293B" text-anchor="middle">曆</text><text x="256" y="415" font-family="sans-serif" font-weight="bold" font-size="22" fill="%2364748B" text-anchor="middle">公曆 • 農曆</text></svg>'>
+    <link rel="apple-touch-icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%234F46E5"/><stop offset="100%" stop-color="%237C3AED"/></linearGradient><linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23EF4444"/><stop offset="100%" stop-color="%23B91C1C"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(%23bg)"/><rect x="64" y="80" width="384" height="368" rx="32" fill="%23FFFFFF" fill-opacity="0.95"/><path d="M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z" fill="url(%23badge)"/><circle cx="144" cy="80" r="12" fill="%231E293B"/><circle cx="368" cy="80" r="12" fill="%231E293B"/><rect x="138" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><rect x="362" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><text x="256" y="132" font-family="sans-serif" font-weight="bold" font-size="32" fill="%23FFFFFF" text-anchor="middle">萬年曆</text><text x="256" y="310" font-family="serif" font-weight="bold" font-size="130" fill="%231E293B" text-anchor="middle">曆</text><text x="256" y="415" font-family="sans-serif" font-weight="bold" font-size="22" fill="%2364748B" text-anchor="middle">公曆 • 農曆</text></svg>'>
+    
     <meta name="theme-color" content="#4f46e5">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="萬年曆">
 
-    <!-- 引入農曆計算庫 (離線時會由 Service Worker 擷取快取) -->
+    <!-- 引入農曆計算庫 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lunar-javascript/1.6.12/lunar.min.js"></script>
 
     <style>
         :root {
             --bg-color: #f8fafc;
             --container-bg: #ffffff;
-            --text-color: #1e293b;
+            --text-color: #0f172a;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
             --primary-color: #4f46e5;
             --primary-hover: #4338ca;
-            --today-bg: rgba(79, 70, 229, 0.08);
+            --today-bg: rgba(79, 70, 229, 0.1);
             --today-border: #4f46e5;
             --weekend-color: #ef4444;
-            --term-color: #10b981;
+            --term-color: #059669;
             --header-bg: #f1f5f9;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
         }
 
         [data-theme="dark"] {
@@ -42,12 +49,17 @@
             --border-color: #334155;
             --primary-color: #6366f1;
             --primary-hover: #4f46e5;
-            --today-bg: rgba(99, 102, 241, 0.18);
+            --today-bg: rgba(99, 102, 241, 0.22);
             --today-border: #818cf8;
             --weekend-color: #f87171;
             --term-color: #34d399;
             --header-bg: #0f172a;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+            --card-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -55,169 +67,608 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 16px;
+            padding: 12px 12px 32px 12px;
             transition: background-color 0.3s, color 0.3s;
-            -webkit-tap-highlight-color: transparent;
+            min-height: 100vh;
         }
 
-        .container { max-width: 900px; margin: 0 auto; }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            width: 100%;
+        }
 
         header {
-            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-            margin-bottom: 16px; padding-bottom: 16px; border-bottom: 2px solid var(--border-color); gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        h1 { margin: 0; font-size: 1.5rem; }
+        @media (min-width: 640px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
 
-        .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .brand-icon:hover {
+            transform: scale(1.08);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (min-width: 640px) {
+            h1 { font-size: 1.6rem; }
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .controls {
+                width: auto;
+                justify-content: flex-end;
+            }
+        }
 
         .btn {
-            background-color: var(--primary-color); color: white; border: none; padding: 8px 12px;
-            border-radius: 8px; cursor: pointer; font-weight: 500; transition: background-color 0.2s;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
             font-size: 0.88rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            min-height: 42px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .btn:hover { background-color: var(--primary-hover); }
+
+        @media (min-width: 640px) {
+            .btn { flex: initial; }
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
 
         .btn-today {
-            background-color: #10b981; color: white; border: none; padding: 8px 12px;
-            border-radius: 8px; cursor: pointer; font-weight: 600; transition: background-color 0.2s;
-            font-size: 0.88rem;
+            background-color: #10b981;
         }
-        .btn-today:hover { background-color: #059669; }
+
+        .btn-today:hover {
+            background-color: #059669;
+        }
 
         .theme-toggle {
-            background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color);
-            padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 0.88rem;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            flex: 1;
         }
-        .theme-toggle:hover { background-color: var(--header-bg); }
+
+        @media (min-width: 640px) {
+            .theme-toggle { flex: initial; }
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--header-bg);
+            border-color: var(--primary-color);
+        }
+
+        .search-box {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            box-shadow: var(--card-shadow);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .month-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            gap: 8px;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
         .year-select, .month-select {
-            font-size: 0.95rem; font-weight: bold; padding: 6px 10px; border-radius: 8px;
-            border: 1px solid var(--border-color); background-color: var(--container-bg); color: var(--text-color);
-            cursor: pointer; outline: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--header-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+            height: 40px;
         }
 
-        .search-box { margin-bottom: 16px; }
-        .search-box input {
-            width: 100%; padding: 12px 16px; font-size: 0.95rem; border: 1px solid var(--border-color);
-            border-radius: 10px; background-color: var(--container-bg); color: var(--text-color); box-sizing: border-box; outline: none;
+        .year-select:focus, .month-select:focus {
+            border-color: var(--primary-color);
         }
-        .search-box input:focus { border-color: var(--primary-color); }
-
-        /* 月份導航 */
-        .month-navigation {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
-            background-color: var(--container-bg); border: 1px solid var(--border-color);
-            padding: 10px 16px; border-radius: 12px; box-shadow: var(--card-shadow); flex-wrap: wrap; gap: 8px;
-        }
-
-        .nav-center { display: flex; align-items: center; gap: 8px; }
 
         .nav-arrow {
-            background-color: var(--header-bg); border: 1px solid var(--border-color); color: var(--text-color);
-            width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-weight: bold; transition: all 0.2s; user-select: none;
+            background-color: var(--header-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            user-select: none;
+            flex-shrink: 0;
         }
-        .nav-arrow:hover:not(.disabled) { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .nav-arrow.disabled { opacity: 0.4; cursor: not-allowed; }
 
-        /* 網格檢視 */
-        .grid-view { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .nav-arrow:hover:not(.disabled) {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .grid-view {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
         .month-card {
-            background-color: var(--container-bg); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow);
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: var(--card-shadow);
         }
+
         .month-title {
-            font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 16px;
-            padding-bottom: 10px; border-bottom: 1px solid var(--border-color); color: var(--primary-color);
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-color);
+            letter-spacing: -0.01em;
         }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-        .weekday-header { font-weight: bold; font-size: 0.85rem; color: var(--text-muted); padding: 6px 0; }
-        .weekday-header.weekend { color: var(--weekend-color); }
-        
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        @media (min-width: 480px) {
+            .calendar-grid { gap: 8px; }
+        }
+
+        .weekday-header {
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            padding: 8px 0;
+            text-transform: uppercase;
+        }
+
+        .weekday-header.weekend {
+            color: var(--weekend-color);
+        }
+
         .day-cell {
-            aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 8px; font-size: 0.95rem; border: 1px solid transparent; cursor: pointer;
-            transition: all 0.15s; background-color: var(--header-bg); position: relative;
+            aspect-ratio: 1;
+            min-height: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+            background-color: var(--header-bg);
+            position: relative;
+            padding: 2px;
+            overflow: hidden;
         }
-        .day-cell:hover:not(.empty) { background-color: var(--primary-color); color: white !important; transform: scale(1.05); z-index: 2; }
-        .day-cell:hover:not(.empty) .l-day { color: rgba(255, 255, 255, 0.9) !important; }
-        .day-cell.empty { cursor: default; background-color: transparent; border-color: transparent; }
-        .day-cell .g-day { font-weight: 600; }
-        .day-cell .l-day { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
-        .day-cell.weekend .g-day { color: var(--weekend-color); }
-        .day-cell.has-term .l-day { color: var(--term-color); font-weight: bold; }
+
+        @media (min-width: 640px) {
+            .day-cell {
+                min-height: 64px;
+                padding: 4px;
+            }
+        }
+
+        .day-cell:hover:not(.empty) {
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            transform: translateY(-2px) scale(1.02);
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .day-cell:hover:not(.empty) .l-day {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        .day-cell.empty {
+            cursor: default;
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        .day-cell .g-day {
+            font-weight: 700;
+            font-size: 0.95rem;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 640px) {
+            .day-cell .g-day { font-size: 1.15rem; }
+        }
+
+        .day-cell .l-day {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            padding: 0 2px;
+        }
+
+        @media (min-width: 640px) {
+            .day-cell .l-day { font-size: 0.75rem; }
+        }
+
+        .day-cell.weekend .g-day {
+            color: var(--weekend-color);
+        }
+
+        .day-cell.has-term .l-day {
+            color: var(--term-color);
+            font-weight: 700;
+        }
 
         /* 當日 highlight 樣式 */
         .day-cell.is-today {
             border: 2px solid var(--today-border) !important;
             background-color: var(--today-bg) !important;
-            box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 0 12px rgba(79, 70, 229, 0.25);
             font-weight: bold;
         }
+
         .day-cell.is-today::after {
             content: '今天';
             position: absolute;
             top: 2px;
-            right: 3px;
-            font-size: 0.55rem;
+            right: 2px;
+            font-size: 0.5rem;
             background-color: var(--primary-color);
             color: #ffffff;
             padding: 1px 3px;
             border-radius: 4px;
-            font-weight: bold;
+            font-weight: 800;
             line-height: 1;
         }
 
-        /* 列表檢視 */
-        .list-view {
-            display: none; background-color: var(--container-bg); border: 1px solid var(--border-color);
-            border-radius: 12px; overflow-x: auto; box-shadow: var(--card-shadow);
+        @media (min-width: 640px) {
+            .day-cell.is-today::after {
+                font-size: 0.58rem;
+                padding: 1px 4px;
+            }
         }
-        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 750px; }
-        th, td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
-        th { background-color: var(--header-bg); font-weight: bold; color: var(--primary-color); white-space: nowrap; }
-        tr:hover { background-color: var(--header-bg); cursor: pointer; }
-        tr.is-today-row { background-color: var(--today-bg); font-weight: bold; }
-        
-        .text-truncate {
-            max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; vertical-align: bottom;
-        }
-        .text-highlight-red { color: #ef4444; font-weight: bold; }
-        .text-highlight-green { color: #10b981; font-weight: bold; }
 
-        /* 詳情彈窗 */
+        .list-view {
+            display: none;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            box-shadow: var(--card-shadow);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.88rem;
+        }
+
+        th {
+            background-color: var(--header-bg);
+            font-weight: 700;
+            color: var(--primary-color);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        tr:hover {
+            background-color: var(--header-bg);
+            cursor: pointer;
+        }
+
+        tr.is-today-row {
+            background-color: var(--today-bg);
+            font-weight: bold;
+        }
+
+        .text-truncate {
+            max-width: 130px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .text-highlight-red { color: #ef4444; font-weight: 600; }
+        .text-highlight-green { color: var(--term-color); font-weight: 600; }
+
         .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 1000;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 16px;
+            animation: fadeIn 0.2s ease-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .modal-content {
-            background-color: var(--container-bg); border: 1px solid var(--border-color); border-radius: 12px;
-            padding: 20px; max-width: 380px; width: 88%; box-shadow: var(--card-shadow); position: relative;
-            max-height: 85vh; overflow-y: auto;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-        .close-btn { position: absolute; top: 12px; right: 15px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
-        .modal-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; align-items: flex-start; gap: 8px; }
-        .info-label { color: var(--text-muted); white-space: nowrap; }
-        .info-value { font-weight: 600; text-align: right; }
+
+        .close-btn {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close-btn:hover { color: var(--text-color); }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.92rem;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-weight: 600;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .svg-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 16px;
+            background-color: var(--header-bg);
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border-color);
+        }
+
+        .svg-preview-box svg {
+            width: 128px;
+            height: 128px;
+            border-radius: 24px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .code-snippet {
+            width: 100%;
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            font-size: 0.75rem;
+            max-height: 120px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1 id="calendarTitle">📅 公曆農曆對照表</h1>
+            <div class="brand">
+                <!-- SVG Icon used for branding -->
+                <svg class="brand-icon" id="headerLogo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4F46E5"/>
+                            <stop offset="100%" stop-color="#7C3AED"/>
+                        </linearGradient>
+                        <linearGradient id="bdG" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#EF4444"/>
+                            <stop offset="100%" stop-color="#B91C1C"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="512" height="512" rx="112" fill="url(#bgG)"/>
+                    <rect x="64" y="80" width="384" height="368" rx="32" fill="#FFFFFF" fill-opacity="0.95"/>
+                    <path d="M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z" fill="url(#bdG)"/>
+                    <circle cx="144" cy="80" r="12" fill="#1E293B"/>
+                    <circle cx="368" cy="80" r="12" fill="#1E293B"/>
+                    <rect x="138" y="52" width="12" height="32" rx="6" fill="#94A3B8"/>
+                    <rect x="362" y="52" width="12" height="32" rx="6" fill="#94A3B8"/>
+                    <text x="256" y="132" font-family="sans-serif" font-weight="bold" font-size="32" fill="#FFFFFF" text-anchor="middle">萬年曆</text>
+                    <text x="256" y="310" font-family="serif" font-weight="bold" font-size="130" fill="#1E293B" text-anchor="middle">曆</text>
+                    <text x="256" y="415" font-family="sans-serif" font-weight="bold" font-size="22" fill="#64748B" text-anchor="middle">公曆 • 農曆</text>
+                </svg>
+                <h1 id="calendarTitle">📅 公曆農曆對照表</h1>
+            </div>
             <div class="controls">
-                <button class="btn-today" onclick="jumpToToday()">📍 回到今天</button>
-                <button class="btn" id="viewToggleBtn" onclick="toggleView()">切換列表檢視</button>
+                <button class="btn btn-today" onclick="jumpToToday()">📍 回到今天</button>
+                <button class="btn" id="viewToggleBtn" onclick="toggleView()">📋 切換列表檢視</button>
                 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 深色模式</button>
             </div>
         </header>
 
+        <!-- Search Bar -->
         <div class="search-box">
+            <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="搜尋日期、節氣、宜忌 (例如：端午、中秋、立春、嫁娶...)" oninput="handleSearch()">
         </div>
 
+        <!-- Month Navigation Bar -->
         <div class="month-navigation" id="monthNavigation">
             <div class="nav-arrow" id="prevBtn" onclick="prevMonth()">&lt;</div>
             <div class="nav-center">
@@ -240,8 +691,10 @@
             <div class="nav-arrow" id="nextBtn" onclick="nextMonth()">&gt;</div>
         </div>
 
+        <!-- Grid View Container -->
         <div class="grid-view" id="gridView"></div>
 
+        <!-- List View Container -->
         <div class="list-view" id="listView">
             <table>
                 <thead>
@@ -249,7 +702,7 @@
                         <th>公曆日期</th>
                         <th>星期</th>
                         <th>農曆 (干支)</th>
-                        <th>節氣</th>
+                        <th>節氣 / 節日</th>
                         <th>沖煞</th>
                         <th>宜</th>
                         <th>忌</th>
@@ -260,8 +713,8 @@
         </div>
     </div>
 
-    <!-- 詳情彈窗 -->
-    <div class="modal" id="detailModal" onclick="closeModal(event)">
+    <!-- 黃曆詳情彈窗 -->
+    <div class="modal" id="detailModal" onclick="closeModal(event, 'detailModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="document.getElementById('detailModal').style.display='none'">&times;</span>
             <div class="modal-title" id="modalTitle">黃曆詳情</div>
@@ -269,9 +722,9 @@
             <div class="info-row"><span class="info-label">星期：</span><span class="info-value" id="modalDayOfWeek"></span></div>
             <div class="info-row"><span class="info-label">農曆日期：</span><span class="info-value" id="modalLDate"></span></div>
             <div class="info-row"><span class="info-label">干支生肖：</span><span class="info-value" id="modalGanZhi"></span></div>
-            <div class="info-row"><span class="info-label">節氣：</span><span class="info-value text-highlight-green" id="modalTerm"></span></div>
+            <div class="info-row"><span class="info-label">節氣/節日：</span><span class="info-value text-highlight-green" id="modalTerm"></span></div>
             <div class="info-row"><span class="info-label">沖煞：</span><span class="info-value" id="modalChongSha"></span></div>
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 14px 0;">
             <div class="info-row"><span class="info-label text-highlight-green">宜：</span><span class="info-value text-highlight-green" id="modalYi"></span></div>
             <div class="info-row"><span class="info-label text-highlight-red">忌：</span><span class="info-value text-highlight-red" id="modalJi"></span></div>
         </div>
@@ -298,8 +751,8 @@
             '宝':'寶', '还':'還', '远':'遠', '违':'違', '连':'連', '迟':'遲', '过':'過',
             '达':'達', '运':'運', '游':'遊', '道':'道', '递':'遞', '业':'業', '树':'樹',
             '桥':'橋', '炉':'爐', '锅':'鍋', '杀':'殺', '疗':'療', '体':'體', '须':'鬚',
-            '胜':'勝', '划':'劃', '汇':'匯', '柜':'櫃', '鉴':'鑑', '灵':'靈', '历':'曆',
-            '离':'離', '干':'乾', '里':'裡'
+            '胜':'勝', '划':'劃', '汇':'匯', '柜':'櫃', '鉴':'鑑', '灵':'靈', '离':'離',
+            '干':'乾', '里':'裡'
         };
 
         function toTrad(str) {
@@ -369,10 +822,10 @@
                 document.getElementById('themeBtn').innerHTML = '☀️ 淺色模式';
             }
 
-            // 初始化年份下拉選單 (前後 5 年)
+            // 初始化年份下拉選單 (前後 10 年)
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
-            for (let y = sysYear - 5; y <= sysYear + 5; y++) {
+            for (let y = sysYear - 10; y <= sysYear + 10; y++) {
                 const opt = document.createElement('option');
                 opt.value = y;
                 opt.textContent = `${y} 年`;
@@ -436,12 +889,12 @@
             if (currentView === 'grid') {
                 grid.style.display = 'none';
                 list.style.display = 'block';
-                btn.innerHTML = '切換網格檢視';
+                btn.innerHTML = '📅 切換網格檢視';
                 currentView = 'list';
             } else {
                 grid.style.display = 'grid';
                 list.style.display = 'none';
-                btn.innerHTML = '切換列表檢視';
+                btn.innerHTML = '📋 切換列表檢視';
                 currentView = 'grid';
             }
             
@@ -537,9 +990,9 @@
                 
                 tr.innerHTML = `
                     <td>${day.g_date} ${day.isToday ? '<span style="color:var(--primary-color);font-weight:bold;">(今天)</span>' : ''}</td>
-                    <td>${weekdays[day.day_of_week]}</td>
+                    <td>星期${weekdays[day.day_of_week]}</td>
                     <td>${day.gan_zhi} (${day.zodiac})<br><span style="color:var(--text-muted);font-size:0.85em">${day.l_month}${day.l_date}</span></td>
-                    <td class="text-highlight-green">${day.solar_term || '-'}</td>
+                    <td class="text-highlight-green">${day.solar_term || day.festivals || '-'}</td>
                     <td>${day.chong_sha}</td>
                     <td><span class="text-truncate text-highlight-green" title="${day.yi}">${day.yi}</span></td>
                     <td><span class="text-truncate text-highlight-red" title="${day.ji}">${day.ji}</span></td>
@@ -580,7 +1033,7 @@
                 
                 const calGrid = document.createElement('div');
                 calGrid.className = 'calendar-grid';
-                calGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(75px, 1fr))';
+                calGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(70px, 1fr))';
 
                 filtered.forEach(day => {
                     const cell = document.createElement('div');
@@ -615,9 +1068,9 @@
         function showDetail(day) {
             document.getElementById('modalGDate').innerHTML = day.g_date + (day.isToday ? ' (今天)' : '');
             document.getElementById('modalDayOfWeek').innerHTML = '星期' + weekdays[day.day_of_week];
-            document.getElementById('modalGanZhi').innerHTML = day.gan_zhi + ' ' + day.zodiac + '年';
+            document.getElementById('modalGanZhi').innerHTML = day.gan_zhi + ' (' + day.zodiac + '年)';
             document.getElementById('modalLDate').innerHTML = day.l_month + day.l_date;
-            document.getElementById('modalTerm').innerHTML = day.solar_term || '無';
+            document.getElementById('modalTerm').innerHTML = day.solar_term || day.festivals || '無';
             document.getElementById('modalChongSha').innerHTML = day.chong_sha;
             document.getElementById('modalYi').innerHTML = day.yi;
             document.getElementById('modalJi').innerHTML = day.ji;
@@ -625,22 +1078,31 @@
             document.getElementById('detailModal').style.display = 'flex';
         }
 
-        function closeModal(event) {
-            if (event.target === document.getElementById('detailModal')) {
-                document.getElementById('detailModal').style.display = 'none';
+        function closeModal(event, modalId) {
+            if (event.target === document.getElementById(modalId)) {
+                document.getElementById(modalId).style.display = 'none';
             }
         }
 
-        // 註冊 Service Worker 實現 PWA 快取與離線使用
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker 註冊成功:', registration.scope);
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker 註冊失敗:', err);
+                // Dynamically inline SW blob so offline PWA works without separate sw.js file
+                const swCode = `
+                    const CACHE_NAME = 'perpetual-calendar-v1';
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(
+                            caches.match(e.request).then((res) => res || fetch(e.request))
+                        );
                     });
+                `;
+                const blob = new Blob([swCode], { type: 'text/javascript' });
+                const blobUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(blobUrl)
+                    .then(reg => console.log('PWA ServiceWorker registered:', reg.scope))
+                    .catch(err => console.log('ServiceWorker registration error:', err));
             });
         }
 
