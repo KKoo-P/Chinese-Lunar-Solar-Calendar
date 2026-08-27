@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>萬年曆公曆農曆對照表</title>
     
-    <!-- Inline Dynamic PWA Manifest via Data URI -->
-    <link rel="manifest" href='data:application/manifest+json,{"name":"萬年曆公曆農曆對照表","short_name":"萬年曆","description":"精準公曆農曆對照、節氣、黃曆宜忌與萬年曆查詢工具","start_url":"./","display":"standalone","background_color":"#4f46e5","theme_color":"#4f46e5","icons":[{"src":"data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><defs><linearGradient id=\"bg\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%234F46E5\"/><stop offset=\"100%\" stop-color=\"%237C3AED\"/></linearGradient><linearGradient id=\"badge\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%23EF4444\"/><stop offset=\"100%\" stop-color=\"%23B91C1C\"/></linearGradient></defs><rect width=\"512\" height=\"512\" rx=\"112\" fill=\"url(%23bg)\"/><rect x=\"64\" y=\"80\" width=\"384\" height=\"368\" rx=\"32\" fill=\"%23FFFFFF\" fill-opacity=\"0.95\"/><path d=\"M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z\" fill=\"url(%23badge)\"/><circle cx=\"144\" cy=\"80\" r=\"12\" fill=\"%231E293B\"/><circle cx=\"368\" cy=\"80\" r=\"12\" fill=\"%231E293B\"/><rect x=\"138\" y=\"52\" width=\"12\" height=\"32\" rx=\"6\" fill=\"%2394A3B8\"/><rect x=\"362\" y=\"52\" width=\"12\" height=\"32\" rx=\"6\" fill=\"%2394A3B8\"/><text x=\"256\" y=\"132\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"32\" fill=\"%23FFFFFF\" text-anchor=\"middle\">萬年曆</text><text x=\"256\" y=\"310\" font-family=\"serif\" font-weight=\"bold\" font-size=\"130\" fill=\"%231E293B\" text-anchor="middle\">曆</text><text x=\"256\" y=\"415\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"22\" fill=\"%2364748B\" text-anchor=\"middle\">公曆 • 農曆</text></svg>","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}'>
+    <!-- PWA Standard File References -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
     
-    <!-- Dynamic SVG Favicon & Touch Icon Data URIs -->
-    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%234F46E5"/><stop offset="100%" stop-color="%237C3AED"/></linearGradient><linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23EF4444"/><stop offset="100%" stop-color="%23B91C1C"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(%23bg)"/><rect x="64" y="80" width="384" height="368" rx="32" fill="%23FFFFFF" fill-opacity="0.95"/><path d="M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z" fill="url(%23badge)"/><circle cx="144" cy="80" r="12" fill="%231E293B"/><circle cx="368" cy="80" r="12" fill="%231E293B"/><rect x="138" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><rect x="362" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><text x="256" y="132" font-family="sans-serif" font-weight="bold" font-size="32" fill="%23FFFFFF" text-anchor="middle">萬年曆</text><text x="256" y="310" font-family="serif" font-weight="bold" font-size="130" fill="%231E293B" text-anchor="middle">曆</text><text x="256" y="415" font-family="sans-serif" font-weight="bold" font-size="22" fill="%2364748B" text-anchor="middle">公曆 • 農曆</text></svg>'>
-    <link rel="apple-touch-icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%234F46E5"/><stop offset="100%" stop-color="%237C3AED"/></linearGradient><linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23EF4444"/><stop offset="100%" stop-color="%23B91C1C"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(%23bg)"/><rect x="64" y="80" width="384" height="368" rx="32" fill="%23FFFFFF" fill-opacity="0.95"/><path d="M64 112c0-17.67 14.33-32 32-32h320c17.67 0 32 14.33 32 32v64H64v-64z" fill="url(%23badge)"/><circle cx="144" cy="80" r="12" fill="%231E293B"/><circle cx="368" cy="80" r="12" fill="%231E293B"/><rect x="138" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><rect x="362" y="52" width="12" height="32" rx="6" fill="%2394A3B8"/><text x="256" y="132" font-family="sans-serif" font-weight="bold" font-size="32" fill="%23FFFFFF" text-anchor="middle">萬年曆</text><text x="256" y="310" font-family="serif" font-weight="bold" font-size="130" fill="%231E293B" text-anchor="middle">曆</text><text x="256" y="415" font-family="sans-serif" font-weight="bold" font-size="22" fill="%2364748B" text-anchor="middle">公曆 • 農曆</text></svg>'>
+    <!-- iOS Safari Apple Touch Icon (Will be dynamically enriched with a PNG Data URI on load) -->
+    <link rel="apple-touch-icon" sizes="180x180" id="appleTouchIcon" href="icon-512.png">
     
     <meta name="theme-color" content="#4f46e5">
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,7 +20,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="萬年曆">
 
-    <!-- 引入農曆計算庫 -->
+    <!-- 農曆計算庫 lunar-javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lunar-javascript/1.6.12/lunar.min.js"></script>
 
     <style>
@@ -106,12 +108,6 @@
             height: 38px;
             border-radius: 10px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .brand-icon:hover {
-            transform: scale(1.08);
         }
 
         h1 {
@@ -430,7 +426,6 @@
             font-weight: 700;
         }
 
-        /* 當日 highlight 樣式 */
         .day-cell.is-today {
             border: 2px solid var(--today-border) !important;
             background-color: var(--today-bg) !important;
@@ -590,47 +585,12 @@
             text-align: right;
             word-break: break-word;
         }
-
-        .svg-preview-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            margin-top: 16px;
-            padding: 16px;
-            background-color: var(--header-bg);
-            border-radius: var(--radius-md);
-            border: 1px dashed var(--border-color);
-        }
-
-        .svg-preview-box svg {
-            width: 128px;
-            height: 128px;
-            border-radius: 24px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .code-snippet {
-            width: 100%;
-            background: #0f172a;
-            color: #38bdf8;
-            padding: 12px;
-            border-radius: var(--radius-sm);
-            font-family: monospace;
-            font-size: 0.75rem;
-            max-height: 120px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-            text-align: left;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="brand">
-                <!-- SVG Icon used for branding -->
                 <svg class="brand-icon" id="headerLogo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -662,13 +622,11 @@
             </div>
         </header>
 
-        <!-- Search Bar -->
         <div class="search-box">
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="搜尋日期、節氣、宜忌 (例如：端午、中秋、立春、嫁娶...)" oninput="handleSearch()">
         </div>
 
-        <!-- Month Navigation Bar -->
         <div class="month-navigation" id="monthNavigation">
             <div class="nav-arrow" id="prevBtn" onclick="prevMonth()">&lt;</div>
             <div class="nav-center">
@@ -713,7 +671,6 @@
         </div>
     </div>
 
-    <!-- 黃曆詳情彈窗 -->
     <div class="modal" id="detailModal" onclick="closeModal(event, 'detailModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="document.getElementById('detailModal').style.display='none'">&times;</span>
@@ -731,7 +688,7 @@
     </div>
 
     <script>
-        // 繁體中文映射字典
+        // Simplified-to-Traditional Chinese mapping dictionary
         const s2tDict = {
             '开':'開', '动':'動', '纳':'納', '财':'財', '采':'采', '仓':'倉', '库':'庫',
             '殓':'殮', '坟':'墳', '寿':'壽', '结':'結', '网':'網', '启':'啟', '攒':'攢',
@@ -764,7 +721,7 @@
             return res;
         }
 
-        // 系統當前日期變數
+        // Global Date State
         const sysDate = new Date();
         const sysYear = sysDate.getFullYear();
         const sysMonth = sysDate.getMonth() + 1;
@@ -808,21 +765,84 @@
                             festivals: toTrad(lunar.getFestivals().join('、'))
                         });
                     } catch (e) {
-                        console.error("生成日期錯誤", year, month, day, e);
+                        console.error("Date generation error:", year, month, day, e);
                     }
                 }
             }
             return data;
         }
 
+        function initPwaIcons() {
+            // Generate a crisp PNG Data URI via HTML5 Canvas for iOS Apple Touch Icon
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw gradient background
+            const grad = ctx.createLinearGradient(0, 0, 512, 512);
+            grad.addColorStop(0, '#4F46E5');
+            grad.addColorStop(1, '#7C3AED');
+            
+            ctx.beginPath();
+            const r = 112;
+            ctx.moveTo(r, 0);
+            ctx.arcTo(512, 0, 512, 512, r);
+            ctx.arcTo(512, 512, 0, 512, r);
+            ctx.arcTo(0, 512, 0, 0, r);
+            ctx.arcTo(0, 0, 512, 0, r);
+            ctx.closePath();
+            ctx.fillStyle = grad;
+            ctx.fill();
+            
+            // White card area
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.beginPath();
+            ctx.roundRect ? ctx.roundRect(64, 80, 384, 368, 32) : ctx.rect(64, 80, 384, 368);
+            ctx.fill();
+            
+            // Red header band
+            const headerGrad = ctx.createLinearGradient(0, 0, 512, 0);
+            headerGrad.addColorStop(0, '#EF4444');
+            headerGrad.addColorStop(1, '#B91C1C');
+            ctx.fillStyle = headerGrad;
+            ctx.fillRect(64, 80, 384, 80);
+            
+            // Header Text
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 32px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('萬年曆', 256, 134);
+            
+            // Body "曆"
+            ctx.fillStyle = '#1E293B';
+            ctx.font = 'bold 130px serif';
+            ctx.fillText('曆', 256, 310);
+            
+            // Footer Text
+            ctx.fillStyle = '#64748B';
+            ctx.font = 'bold 22px sans-serif';
+            ctx.fillText('公曆 • 農曆', 256, 415);
+            
+            try {
+                const pngUrl = canvas.toDataURL('image/png');
+                const appleIcon = document.getElementById('appleTouchIcon');
+                if (appleIcon) {
+                    appleIcon.href = pngUrl;
+                }
+            } catch(e) {
+                console.log('Dynamic PWA icon generation note:', e);
+            }
+        }
+
         function init() {
-            // 自動偵測系統主題
+            initPwaIcons();
+
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 document.getElementById('themeBtn').innerHTML = '☀️ 淺色模式';
             }
 
-            // 初始化年份下拉選單 (前後 10 年)
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
             for (let y = sysYear - 10; y <= sysYear + 10; y++) {
@@ -833,10 +853,7 @@
                 yearSelect.appendChild(opt);
             }
 
-            // 載入年份數據
             loadYear(currentYear);
-
-            // 自動滾動到今天
             setTimeout(scrollToToday, 250);
         }
 
@@ -1084,9 +1101,9 @@
             }
         }
 
+        // Register Inline Service Worker for PWA Offline Caching
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // Dynamically inline SW blob so offline PWA works without separate sw.js file
                 const swCode = `
                     const CACHE_NAME = 'perpetual-calendar-v1';
                     self.addEventListener('install', (e) => self.skipWaiting());

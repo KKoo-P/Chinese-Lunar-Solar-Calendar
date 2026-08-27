@@ -1,19 +1,28 @@
-/* STREAMING_CHUNK:Defining Web App Manifest configuration... */
 {
-"name": "萬年曆公曆農曆對照表",
-"short_name": "萬年曆",
-"description": "公曆農曆對照、干支生肖、二十四節氣與黃曆宜忌查詢萬年曆",
-"start_url": "./index.html",
-"display": "standalone",
-"orientation": "portrait",
-"background_color": "#f8fafc",
-"theme_color": "#4f46e5",
-"icons": [
-{
-"src": "./icon.svg",
-"sizes": "192x192 512x512",
-"type": "image/svg+xml",
-"purpose": "any maskable"
-}
-]
+  "name": "萬年曆",
+  "short_name": "萬年曆",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
