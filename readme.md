@@ -35,7 +35,7 @@
 
 🍎 iOS (iPhone / iPad)
 
-使用 Safari 瀏覽器 開啟您的 GitHub Pages 網址。
+使用 Safari 瀏覽器 開啟 https://kkoo-p.github.io/Chinese-Lunar-Solar-Calendar/ 網址。
 
 點擊螢幕底部的 分享 圖示（帶有向上箭頭的方塊）。
 
@@ -47,7 +47,7 @@
 
 🤖 Android (安卓系統)
 
-使用 Chrome 瀏覽器 開啟您的 GitHub Pages 網址。
+使用 Chrome 瀏覽器 開啟 https://kkoo-p.github.io/Chinese-Lunar-Solar-Calendar/ 網址。
 
 點擊右上角的選單圖示 ⋮。
 
